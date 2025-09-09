@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool Club Fixture System</title>
+    <style>
+        /* Your existing CSS remains the same */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }  
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 10px;
+            position: relative;
+            padding-bottom: 50px; /* Space for footer */
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 1.6rem; /* Reduced from 1.8rem */
+            margin-bottom: 8px;
+        }
+        
+        .auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .user-info {
+            color: white;
+            fontWeight: 600;
+            font-size: 0.8rem; /* Reduced from 0.9rem */
+        }
+        
+        .auth-btn {
+            background: #1abc9c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            font-size: 0.8rem; /* Reduced from 0.9rem */
+        }
+        
+        .auth-btn:hover {
+            background: #16a085;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #34495e;
+            padding: 0;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab {
+            padding: 12px 15px;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            transition: background 0.3s;
+            white-space: nowrap;
+            font-size: 0.8rem; /* Reduced from 0.9rem */
+            flex-shrink: 0;
+        }
+        
+        .tab.active {
+            background: #1abc9c;
+        }
+        
+        .tab:hover {
+            background: #16a085;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 15px;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-section, .fixture-section {
+            width: 100%;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ddd;
+            font-size: 1.2rem; /* Reduced from 1.3rem */
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 12px 0;
+            font-size: 1rem; /* Reduced from 1.1rem */
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.8rem; /* Reduced from 0.9rem */
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px; /* Prevents zoom on iOS */
+        }
+        
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 8px;
+            margin-right: 8px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #1a252f;
+        }
+        
+        button.secondary {
+            background: #95a5a6;
+        }
+        
+        button.secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        button.success {
+            background: #27ae60;
+        }
+        
+        button.success:hover {
+            background: #219653;
+        }
+        
+        button.warning {
+            background: #f39c12;
+        }
+        
+        button.warning:hover {
+            background: #e67e22;
+        }
+        
+        button.danger {
+            background: #e74c3c;
+        }
+        
+        button.danger:hover {
+            background: #c0392b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.8rem; /* Reduced from 0.85rem */
+        }
+        
+        th, td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .points {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .winner {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .fixture-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .fixture-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .fixture-details {
+            flex: 1;
+        }
+        
+        .fixture-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: space-between;
+        }
+        
+        .completed {
+            background-color: #e8f5e9;
+        }
+        
+        .match-number {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 8px;
+            font-size: 0.75rem; /* Reduced from 0.8rem */
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem; /* Reduced from 0.75rem */
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .scheduled {
+            background: #ffeaa7;
+            color: #d35400;
+        }
+        
+        .completed-badge {
+            background: #a3e4d7;
+            color: #0b5345;
+        }
+        
+        .paid-badge {
+            background: #a3e4d7;
+            color: #0b5345;
+        }
+        
+        .pending-badge {
+            background: #ffeaa7;
+            color: #d35400;
+        }
+        
+        .pot-amount {
+            font-size: 1.1rem; /* Reduced from 1.2rem */
+            font-weight: bold;
+            color: #27ae60;
+            text-align: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+        
+        .distribution-list {
+            margin-top: 15px;
+        }
+        
+        .distribution-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.2rem; /* Reduced */
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.65rem; /* Reduced from 0.7rem */
+            font-weight: bold;
+            margin-left: 8px;
+            background: #3498db;
+            color: white;
+        }
+        
+        .admin-badge {
+            background: #e74c3c;
+        }
+        
+        .cashier-badge {
+            background: #f39c12;
+        }
+        
+        .recorder-badge {
+            background: #27ae60;
+        }
+        
+        .viewer-badge {
+            background: #3498db;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .db-status {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            background: #27ae60;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem; /* Reduced from 0.7rem */
+            opacity: 0.9;
+            z-index: 100;
+        }
+        
+        /* Result modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            width: auto;
+            margin: 0;
+            padding: 0 10px;
+        }
+        
+        /* Player stats styles */
+        .player-stats-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .player-stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .player-stats-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Leaderboard highlighting */
+        .leaderboard-top-1 {
+            background-color: #FFD700 !important; /* Gold */
+        }
+        
+        .leaderboard-top-2 {
+            background-color: #C0C0C0 !important; /* Silver */
+        }
+        
+        .leaderboard-top-3 {
+            background-color: #CD7F32 !important; /* Bronze */
+        }
+        
+        /* Footer styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            z-index: 100;
+        }
+        
+        /* Mobile-specific styles */
+        @media (min-width: 768px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .form-section {
+                flex: 1;
+                min-width: 300px;
+            }
+            
+            .fixture-section {
+                flex: 2;
+                min-width: 400px;
+            }
+            
+            .fixture-item {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .fixture-actions {
+                margin-top: 0;
+                width: auto;
+                justify-content: flex-end;
+            }
+            
+            .auth-section {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                justify-content: flex-end;
+                margin-top: 0;
+            }
+            
+            h1 {
+                font-size: 1.8rem; /* Reduced from 2.2rem */
+            }
+            
+            button {
+                width: auto;
+            }
+            
+            .tabs {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            /* Mobile-specific improvements */
+            .container {
+                border-radius: 8px;
+                margin: 5px;
+                padding: 0;
+            }
+            
+            header {
+                padding: 12px 10px;
+            }
+            
+            h1 {
+                font-size: 1.3rem; /* Reduced from 1.5rem */
+                margin-bottom: 5px;
+            }
+            
+            .tab {
+                padding: 10px 12px;
+                font-size: 0.75rem; /* Reduced from 0.8rem */
+            }
+            
+            .tab-content {
+                padding: 12px 10px;
+            }
+            
+            .form-section, .fixture-section {
+                padding: 12px 10px;
+                border-radius: 6px;
+            }
+            
+            h2 {
+                font-size: 1.1rem; /* Reduced from 1.2rem */
+                margin-bottom: 12px;
+            }
+            
+            h3 {
+                font-size: 0.9rem; /* Reduced from 1rem */
+                margin: 15px 0 10px 0;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.75rem; /* Reduced from 0.8rem */
+            }
+            
+            .pot-amount {
+                font-size: 1rem; /* Reduced from 1.1rem */
+                padding: 10px;
+                margin: 10px 0;
+            }
+            
+            /* Improve button sizing on mobile */
+            button {
+                padding: 12px 10px;
+                font-size: 0.85rem; /* Reduced from 0.9rem */
+                margin: 8px 0;
+            }
+            
+            /* Improve form elements on mobile */
+            input, select {
+                padding: 12px 10px;
+            }
+            
+            /* Better table scrolling on mobile */
+            .fixture-list {
+                max-height: 50vh;
+            }
+            
+            /* Improve fixture items on mobile */
+            .fixture-item {
+                padding: 10px;
+            }
+            
+            .fixture-actions {
+                flex-direction: column;
+            }
+            
+            /* Adjust auth section for mobile */
+            .auth-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            h1 {
+                font-size: 1.2rem; /* Reduced from 1.4rem */
+            }
+            
+            .tab {
+                padding: 8px 10px;
+                font-size: 0.7rem; /* Reduced from 0.75rem */
+            }
+            
+            .fixture-item {
+                padding: 8px;
+            }
+            
+            .match-number {
+                width: 22px;
+                height: 22px;
+                line-height: 22px;
+                font-size: 0.65rem; /* Reduced from 0.7rem */
+            }
+            
+            .status-badge {
+                font-size: 0.65rem; /* Reduced from 0.7rem */
+                margin-left: 5px;
+            }
+            
+            /* Make sure tables are scrollable on small screens */
+            .fixture-section, .form-section {
+                overflow-x: auto;
+            }
+            
+            /* Adjust padding for very small screens */
+            .tab-content {
+                padding: 10px 8px;
+            }
+            
+            .form-section, .fixture-section {
+                padding: 10px 8px;
+            }
+        }
+        
+        /* Fix for very small screens (e.g., iPhone 5/SE) */
+        @media (max-width: 320px) {
+            h1 {
+                font-size: 1.1rem; /* Reduced from 1.3rem */
+            }
+            
+            .tab {
+                padding: 8px;
+                font-size: 0.65rem; /* Reduced from 0.7rem */
+            }
+            
+            button {
+                padding: 10px 8px;
+                font-size: 0.8rem; /* Reduced from 0.85rem */
+            }
+            
+            input, select {
+                padding: 10px 8px;
+            }
+        }
+        
+        /* Special fix for table responsiveness */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        /* Improve login form on mobile */
+        @media (max-width: 767px) {
+            .login-container {
+                margin: 20px auto;
+                padding: 15px;
+                width: 95%;
+            }
+        }
+        
+        /* Mobile menu for small screens */
+        .mobile-menu-btn {
+            display: none;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                display: none;
+                position: absolute;
+                background: #34495e;
+                width: 100%;
+                z-index: 100;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .tabs.active {
+                display: flex;
+                max-height: 300px;
+            }
+            
+            .tab {
+                width: 100%;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <header>
+            <h1>Richwood (Tsholotsho - Bhagdad) Pool Club</h1>
+            <p>Chiri mupoto League, Winner takes all</p>
+            <div class="auth-section" id="auth-section">
+                <div class="user-info" id="user-info"></div>
+                <button class="auth-btn" id="login-btn">Login</button>
+                <button class="auth-btn hidden" id="logout-btn">Logout</button>
+            </div>
+        </header>
+        
+        <button class="mobile-menu-btn" id="mobile-menu-btn">☰ Menu</button>
+        
+        <div class="tabs" id="tabs-container">
+            <div class="tab active" data-tab="fixtures">Fixtures</div>
+            <div class="tab" data-tab="leaderboard">Leaderboard</div>
+            <div class="tab" data-tab="contributions">Contributions</div>
+            <div class="tab" data-tab="management">Player Management</div>
+            <div class="tab" data-tab="users">User Management</div>
+        </div>
+        
+        <div class="tab-content active" id="fixtures-tab">
+            <div class="app-container">
+                <div class="form-section">
+                    <h2>Generate Fixtures</h2>
+                    <p>Generate a round-robin fixture where each player plays every other player multiple times</p>
+                    
+                    <!-- NEW: Add dropdown to select number of games -->
+                    <div class="form-group">
+                        <label for="gamesPerMatchup">Number of Games per Matchup</label>
+                        <select id="gamesPerMatchup">
+                            <option value="1">1 game</option>
+                            <option value="2">2 games</option>
+                            <option value="3" selected>3 games</option>
+                            <option value="4">4 games</option>
+                            <option value="5">5 games</option>
+                        </select>
+                    </div>
+                    
+                    <button id="generateFixtures" class="recorder-only">Generate Fixtures</button>
+                    
+                    <h3>Filter Fixtures</h3>
+                    <div class="form-group">
+                        <label for="filterPlayer">Filter by Player</label>
+                        <select id="filterPlayer">
+                            <option value="all">All Players</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStatus">Filter by Status</label>
+                        <select id="filterStatus">
+                            <option value="all">All Fixtures</option>
+                            <option value="completed">Completed Only</option>
+                            <option value="scheduled">Upcoming Only</option> <!-- Fixed: changed from "upcoming" to "scheduled" -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="fixture-section">
+                    <h2>Fixture List</h2>
+                    <div class="fixture-list" id="fixtureList">
+                        <!-- Fixtures will be listed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="leaderboard-tab">
+            <div class="app-container">
+                <div class="form-section">
+                    <h2>Player Stats</h2>
+                    <div class="form-group">
+                        <label for="playerSelect">Select Player</label>
+                        <select id="playerSelect">
+                            <option value="">Select a player</option>
+                        </select>
+                    </div>
+                    <div id="playerStats">
+                        <!-- Player stats will be displayed here -->
+                        <p>Select a player to view their statistics</p>
+                    </div>
+                </div>
+                
+                <div class="fixture-section">
+                    <h2>Leaderboard</h2>
+                    <div class="table-container">
+                        <table id="leaderboard">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Played</th>
+                                    <th>Wins</th>
+                                    <th>Draws</th>
+                                    <th>Losses</th>
+                                    <th>Balls For</th>
+                                    <th>Balls Against</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardBody">
+                                <!-- Leaderboard data will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="contributions-tab">
+            <div class="app-container">
+                <div class="form-section">
+                    <h2>Contribution Settings</h2>
+                    <div class="form-group">
+                        <label for="contributionAmount">Contribution Amount per Player ($)</label>
+                        <input type="number" id="contributionAmount" min="0" step="5" value="20">
+                    </div>
+                    <button id="updateContribution" class="cashier-only">Update Contribution Amount</button>
+                    
+                    <h3>Prize Distribution</h3>
+                    <div class="form-group">
+                        <label for="winnersCount">Number of Winners to Reward</label>
+                        <select id="winnersCount">
+                            <option value="3">Top 3</option>
+                            <option value="4">Top 4</option>
+                            <option value="5">Top 5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstPrizePercentage">First Place Percentage (%)</label>
+                        <input type="number" id="firstPrizePercentage" min="1" max="100" value="40">
+                    </div>
+                    <button id="updateDistribution" class="cashier-only">Update Distribution</button>
+                    
+                    <h3>Record Payment</h3>
+                    <div class="form-group">
+                        <label for="paymentPlayer">Select Player</label>
+                        <select id="paymentPlayer">
+                            <option value="">Select a player</option>
+                        </select>
+                    </div>
+                    <button id="recordPayment" class="cashier-only">Mark as Paid</button>
+                </div>
+                
+                <div class="fixture-section">
+                    <h2>Contribution Status</h2>
+                    <div class="pot-amount" id="potAmount">
+                        Total Pot: $0
+                    </div>
+                    
+                    <h3>Payment Status</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentStatusBody">
+                                <!-- Payment status will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>Prize Distribution</h3>
+                    <div id="prizeDistribution">
+                        <!-- Prize distribution will be shown here -->
+                        <div class="distribution-list" id="distributionList">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="management-tab">
+            <div class="app-container">
+                <div class="form-section">
+                    <h2>Add Participant</h2>
+                    <div class="form-group">
+                        <label for="playerName">Player Name</label>
+                        <input type="text" id="playerName" placeholder="Enter player name">
+                    </div>
+                    <button id="addPlayer" class="admin-only">Add Player</button>
+                    
+                    <h3>Reset Data</h3>
+                    <p>Clear all players, fixtures, and results</p>
+                    <button id="resetData" class="secondary admin-only">Reset All Data</button>
+                    
+                    <h3>Database Operations</h3>
+                    <button id="exportData" class="success">Export Database</button>
+                    <button id="importData" class="warning">Import Database</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+                
+                <div class="fixture-section">
+                    <h2>Player List</h2>
+                    <div class="table-container">
+                        <table id="playerList">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Player Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="playerListBody">
+                                <!-- Player list will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="users-tab">
+            <div class="app-container">
+                <div class="form-section">
+                    <h2>Add User</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter password">
+                    </div>
+                    <div class="form-group">
+                        <label for="userRole">Role</label>
+                        <select id="userRole">
+                            <option value="admin">Admin</option>
+                            <option value="cashier">Cashier</option>
+                            <option value="recorder">Recorder</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    <button id="addUser" class="admin-only">Add User</button>
+                </div>
+                
+                <div class="fixture-section">
+                    <h2>User List</h2>
+                    <div class="table-container">
+                        <table id="userList">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userListBody">
+                                <!-- User list will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-container hidden" id="login-container">
+        <h2 class="login-title">Login to Pool Club System</h2>
+        <div class="form-group">
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password">
+        </div>
+        <button id="doLogin">Login</button>
+        <p id="loginError" style="color: #e74c3c; margin-top: 15px; display: none;">Invalid username or password</p>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Record Match Result</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div id="modalBody">
+                <div class="form-group">
+                    <label for="player1Score">Player 1 Score</label>
+                    <input type="number" id="player1Score" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="player2Score">Player 2 Score</label>
+                    <input type="number" id="player2Score" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="player1BallsLeft">Player 1 Balls Left</label>
+                    <input type="number" id="player1BallsLeft" min="0" max="7" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="player2BallsLeft">Player 2 Balls Left</label>
+                    <input type="number" id="player2BallsLeft" min="0" max="7" value="0">
+                </div>
+                <button id="saveResult" class="success">Save Result</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="db-status" id="db-status">Database: Connected</div>
+
+    <footer>
+        Proudly created by Dobatings for your pool enjoyment.
+    </footer>
+
+    <script>
+        // Database setup
+        const DB_NAME = 'PoolClubDB';
+        const DB_VERSION = 1;
+        let db = null;
+        
+        // Current user
+        let currentUser = null;
+        let currentFixture = null;
+        
+        // Store references to DOM elements
+        const elements = {
+            mainContainer: document.getElementById('main-container'),
+            loginContainer: document.getElementById('login-container'),
+            userInfo: document.getElementById('user-info'),
+            loginBtn: document.getElementById('login-btn'),
+            logoutBtn: document.getElementById('logout-btn'),
+            doLogin: document.getElementById('doLogin'),
+            loginError: document.getElementById('loginError'),
+            dbStatus: document.getElementById('db-status'),
+            mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+            tabsContainer: document.getElementById('tabs-container'),
+            fixtureList: document.getElementById('fixtureList'),
+            filterPlayer: document.getElementById('filterPlayer'),
+            filterStatus: document.getElementById('filterStatus'),
+            generateFixtures: document.getElementById('generateFixtures'),
+            playerSelect: document.getElementById('playerSelect'),
+            playerStats: document.getElementById('playerStats'),
+            leaderboardBody: document.getElementById('leaderboardBody'),
+            contributionAmount: document.getElementById('contributionAmount'),
+            winnersCount: document.getElementById('winnersCount'),
+            firstPrizePercentage: document.getElementById('firstPrizePercentage'),
+            updateContribution: document.getElementById('updateContribution'),
+            updateDistribution: document.getElementById('updateDistribution'),
+            paymentPlayer: document.getElementById('paymentPlayer'),
+            recordPayment: document.getElementById('recordPayment'),
+            potAmount: document.getElementById('potAmount'),
+            paymentStatusBody: document.getElementById('paymentStatusBody'),
+            distributionList: document.getElementById('distributionList'),
+            playerName: document.getElementById('playerName'),
+            addPlayer: document.getElementById('addPlayer'),
+            resetData: document.getElementById('resetData'),
+            exportData: document.getElementById('exportData'),
+            importData: document.getElementById('importData'),
+            importFile: document.getElementById('importFile'),
+            username: document.getElementById('username'),
+            password: document.getElementById('password'),
+            userRole: document.getElementById('userRole'),
+            addUser: document.getElementById('addUser'),
+            userListBody: document.getElementById('userListBody'),
+            playerListBody: document.getElementById('playerListBody'),
+            resultModal: document.getElementById('resultModal'),
+            modalTitle: document.getElementById('modalTitle'),
+            player1Score: document.getElementById('player1Score'),
+            player2Score: document.getElementById('player2Score'),
+            player1BallsLeft: document.getElementById('player1BallsLeft'),
+            player2BallsLeft: document.getElementById('player2BallsLeft'),
+            saveResult: document.getElementById('saveResult'),
+            closeModal: document.getElementById('closeModal'),
+            // NEW: Add reference to games per matchup dropdown
+            gamesPerMatchup: document.getElementById('gamesPerMatchup')
+        };
+
+        // Object stores
+        const STORES = {
+            USERS: 'users',
+            PLAYERS: 'players',
+            FIXTURES: 'fixtures',
+            SETTINGS: 'settings'
+        };
+
+        // Initialize the database
+        function initDatabase() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = () => {
+                    elements.dbStatus.textContent = 'Database: Error';
+                    elements.dbStatus.style.background = '#e74c3c';
+                    reject(request.error);
+                };
+                
+                request.onsuccess = () => {
+                    db = request.result;
+                    elements.dbStatus.textContent = 'Database: Connected';
+                    elements.dbStatus.style.background = '#27ae60';
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    
+                    // Create object stores if they don't exist
+                    if (!db.objectStoreNames.contains(STORES.USERS)) {
+                        const userStore = db.createObjectStore(STORES.USERS, { keyPath: 'username' });
+                        userStore.createIndex('username', 'username', { unique: true });
+                    }
+                    
+                    if (!db.objectStoreNames.contains(STORES.PLAYERS)) {
+                        const playerStore = db.createObjectStore(STORES.PLAYERS, { keyPath: 'id', autoIncrement: true });
+                        playerStore.createIndex('name', 'name', { unique: true });
+                    }
+                    
+                    if (!db.objectStoreNames.contains(STORES.FIXTURES)) {
+                        const fixtureStore = db.createObjectStore(STORES.FIXTURES, { keyPath: 'id', autoIncrement: true });
+                        fixtureStore.createIndex('player1', 'player1', { unique: false });
+                        fixtureStore.createIndex('player2', 'player2', { unique: false });
+                        fixtureStore.createIndex('status', 'status', { unique: false });
+                    }
+                    
+                    if (!db.objectStoreNames.contains(STORES.SETTINGS)) {
+                        const settingsStore = db.createObjectStore(STORES.SETTINGS, { keyPath: 'key' });
+                    }
+                };
+            });
+        }
+
+        // Generic function to add data to a store
+        function addData(storeName, data) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([storeName], 'readwrite');
+                const store = transaction.objectStore(storeName);
+                const request = store.add(data);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Generic function to get all data from a store
+        function getAllData(storeName) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([storeName], 'readonly');
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Generic function to update data in a store
+        function updateData(storeName, data) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([storeName], 'readwrite');
+                const store = transaction.objectStore(storeName);
+                const request = store.put(data);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Generic function to delete data from a store
+        function deleteData(storeName, key) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([storeName], 'readwrite');
+                const store = transaction.objectStore(storeName);
+                const request = store.delete(key);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Get a specific setting by key
+        function getSetting(key) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORES.SETTINGS], 'readonly');
+                const store = transaction.objectStore(STORES.SETTINGS);
+                const request = store.get(key);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result ? request.result.value : null);
+            });
+        }
+
+        // Set a specific setting by key
+        function setSetting(key, value) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORES.SETTINGS], 'readwrite');
+                const store = transaction.objectStore(STORES.SETTINGS);
+                const request = store.put({ key, value });
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Initialize default admin user if none exists
+        async function initDefaultAdmin() {
+            try {
+                const users = await getAllData(STORES.USERS);
+                if (users.length === 0) {
+                    await addData(STORES.USERS, {
+                        username: 'admin',
+                        password: 'admin123', // In a real app, this should be hashed
+                        role: 'admin'
+                    });
+                    console.log('Default admin user created');
+                }
+            } catch (error) {
+                console.error('Error creating default admin:', error);
+            }
+        }
+
+        // Login function
+        async function login(username, password) {
+            try {
+                const users = await getAllData(STORES.USERS);
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    currentUser = user;
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    updateUIForUserRole();
+                    elements.loginContainer.classList.add('hidden');
+                    elements.mainContainer.classList.remove('hidden');
+                    return true;
+                }
+                return false;
+            } catch (error) {
+                console.error('Login error:', error);
+                return false;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            elements.mainContainer.classList.add('hidden');
+            elements.loginContainer.classList.remove('hidden');
+        }
+
+        // Update UI based on user role
+        function updateUIForUserRole() {
+            if (!currentUser) return;
+            
+            elements.userInfo.textContent = `Logged in as: ${currentUser.username} `;
+            const roleBadge = document.createElement('span');
+            roleBadge.className = `role-badge ${currentUser.role}-badge`;
+            roleBadge.textContent = currentUser.role.toUpperCase();
+            elements.userInfo.appendChild(roleBadge);
+            
+            elements.loginBtn.classList.add('hidden');
+            elements.logoutBtn.classList.remove('hidden');
+            
+            // Show/hide elements based on role
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = currentUser.role === 'admin' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.cashier-only').forEach(el => {
+                el.style.display = (currentUser.role === 'admin' || currentUser.role === 'cashier') ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.recorder-only').forEach(el => {
+                el.style.display = (currentUser.role === 'admin' || currentUser.role === 'recorder' || currentUser.role === 'cashier') ? 'block' : 'none';
+            });
+        }
+
+        // Load players into dropdowns
+        async function loadPlayersIntoDropdowns() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                
+                // Filter player dropdown
+                elements.filterPlayer.innerHTML = '<option value="all">All Players</option>';
+                elements.paymentPlayer.innerHTML = '<option value="">Select a player</option>';
+                elements.playerSelect.innerHTML = '<option value="">Select a player</option>';
+                
+                players.forEach(player => {
+                    elements.filterPlayer.innerHTML += `<option value="${player.id}">${player.name}</option>`;
+                    elements.paymentPlayer.innerHTML += `<option value="${player.id}">${player.name}</option>`;
+                    elements.playerSelect.innerHTML += `<option value="${player.id}">${player.name}</option>`;
+                });
+            } catch (error) {
+                console.error('Error loading players into dropdowns:', error);
+            }
+        }
+
+        // Load player list
+        async function loadPlayerList() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                elements.playerListBody.innerHTML = '';
+                
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.id}</td>
+                        <td>${player.name}</td>
+                        <td>
+                            <button class="danger admin-only delete-player" data-id="${player.id}">Delete</button>
+                        </td>
+                    `;
+                    elements.playerListBody.appendChild(row);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-player').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const playerId = parseInt(e.target.dataset.id);
+                        if (confirm('Are you sure you want to delete this player? This will also delete all their fixtures.')) {
+                            await deletePlayer(playerId);
+                            await loadPlayerList();
+                            await loadPlayersIntoDropdowns();
+                            await loadFixtures();
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading player list:', error);
+            }
+        }
+
+        // Delete a player and their fixtures
+        async function deletePlayer(playerId) {
+            try {
+                // Delete player
+                await deleteData(STORES.PLAYERS, playerId);
+                
+                // Delete fixtures involving this player
+                const fixtures = await getAllData(STORES.FIXTURES);
+                for (const fixture of fixtures) {
+                    if (fixture.player1 === playerId || fixture.player2 === playerId) {
+                        await deleteData(STORES.FIXTURES, fixture.id);
+                    }
+                }
+            } catch (error) {
+                console.error('Error deleting player:', error);
+            }
+        }
+
+        // Load user list
+        async function loadUserList() {
+            try {
+                const users = await getAllData(STORES.USERS);
+                elements.userListBody.innerHTML = '';
+                
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.username}</td>
+                        <td><span class="role-badge ${user.role}-badge">${user.role.toUpperCase()}</span></td>
+                        <td>
+                            ${user.username !== 'admin' ? 
+                                `<button class="danger admin-only delete-user" data-username="${user.username}">Delete</button>` : 
+                                '<em>Cannot delete admin</em>'
+                            }
+                        </td>
+                    `;
+                    elements.userListBody.appendChild(row);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-user').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const username = e.target.dataset.username;
+                        if (confirm(`Are you sure you want to delete user ${username}?`)) {
+                            await deleteData(STORES.USERS, username);
+                            await loadUserList();
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading user list:', error);
+            }
+        }
+
+        // Generate fixtures
+        async function generateFixtures() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                if (players.length < 2) {
+                    alert('Need at least 2 players to generate fixtures');
+                    return;
+                }
+                
+                // Get the number of games per matchup from the dropdown
+                const gamesPerMatchup = parseInt(elements.gamesPerMatchup.value);
+                
+                // Clear existing fixtures
+                const fixtures = await getAllData(STORES.FIXTURES);
+                for (const fixture of fixtures) {
+                    await deleteData(STORES.FIXTURES, fixture.id);
+                }
+                
+                // Generate round-robin fixtures
+                let fixtureId = 1;
+                for (let i = 0; i < players.length; i++) {
+                    for (let j = i + 1; j < players.length; j++) {
+                        // Create multiple games per matchup
+                        for (let game = 1; game <= gamesPerMatchup; game++) {
+                            await addData(STORES.FIXTURES, {
+                                id: fixtureId++,
+                                player1: players[i].id,
+                                player2: players[j].id,
+                                player1Score: null,
+                                player2Score: null,
+                                player1BallsLeft: 0, // NEW: Initialize balls left
+                                player2BallsLeft: 0, // NEW: Initialize balls left
+                                status: 'scheduled',
+                                playedDate: null
+                            });
+                        }
+                    }
+                }
+                
+                await loadFixtures();
+                alert('Fixtures generated successfully!');
+            } catch (error) {
+                console.error('Error generating fixtures:', error);
+                alert('Error generating fixtures');
+            }
+        }
+
+        // Load fixtures
+        async function loadFixtures() {
+            try {
+                const fixtures = await getAllData(STORES.FIXTURES);
+                const players = await getAllData(STORES.PLAYERS);
+                const filterPlayerId = elements.filterPlayer.value;
+                const filterStatus = elements.filterStatus.value;
+                
+                elements.fixtureList.innerHTML = '';
+                
+                // Sort fixtures: completed first, then by player names
+                fixtures.sort((a, b) => {
+                    if (a.status === 'completed' && b.status !== 'completed') return -1;
+                    if (a.status !== 'completed' && b.status === 'completed') return 1;
+                    
+                    const playerA1 = players.find(p => p.id === a.player1)?.name || '';
+                    const playerA2 = players.find(p => p.id === a.player2)?.name || '';
+                    const playerB1 = players.find(p => p.id === b.player1)?.name || '';
+                    const playerB2 = players.find(p => p.id === b.player2)?.name || '';
+                    
+                    return (playerA1 + playerA2).localeCompare(playerB1 + playerB2);
+                });
+                
+                for (const fixture of fixtures) {
+                    // Apply filters
+                    if (filterPlayerId !== 'all' && fixture.player1 !== parseInt(filterPlayerId) && fixture.player2 !== parseInt(filterPlayerId)) {
+                        continue;
+                    }
+                    
+                    if (filterStatus !== 'all' && fixture.status !== filterStatus) {
+                        continue;
+                    }
+                    
+                    const player1 = players.find(p => p.id === fixture.player1);
+                    const player2 = players.find(p => p.id === fixture.player2);
+                    
+                    if (!player1 || !player2) continue;
+                    
+                    const fixtureElement = document.createElement('div');
+                    fixtureElement.className = `fixture-item ${fixture.status === 'completed' ? 'completed' : ''}`;
+                    
+                    let statusBadge = '';
+                    if (fixture.status === 'completed') {
+                        statusBadge = `<span class="status-badge completed-badge">Completed</span>`;
+                    } else {
+                        statusBadge = `<span class="status-badge scheduled">Scheduled</span>`;
+                    }
+                    
+                    let resultText = '';
+                    if (fixture.status === 'completed') {
+                        let winnerClass = '';
+                        if (fixture.player1Score > fixture.player2Score) {
+                            resultText = `<span class="winner">${player1.name} wins ${fixture.player1Score}-${fixture.player2Score}</span>`;
+                        } else if (fixture.player2Score > fixture.player1Score) {
+                            resultText = `<span class="winner">${player2.name} wins ${fixture.player2Score}-${fixture.player1Score}</span>`;
+                        } else {
+                            resultText = `Draw: ${fixture.player1Score}-${fixture.player2Score}`;
+                        }
+                    }
+                    
+                    fixtureElement.innerHTML = `
+                        <div class="fixture-details">
+                            <span class="match-number">${fixture.id}</span>
+                            ${player1.name} vs ${player2.name}
+                            ${statusBadge}
+                            ${resultText ? `<br>${resultText}` : ''}
+                        </div>
+                        <div class="fixture-actions">
+                            ${fixture.status !== 'completed' ? 
+                                `<button class="success record-result" data-id="${fixture.id}">Record Result</button>` : 
+                                `<button class="warning undo-result" data-id="${fixture.id}">Undo Result</button>`
+                            }
+                        </div>
+                    `;
+                    
+                    elements.fixtureList.appendChild(fixtureElement);
+                }
+                
+                // Add event listeners to record result buttons
+                document.querySelectorAll('.record-result').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const fixtureId = parseInt(e.target.dataset.id);
+                        openResultModal(fixtureId);
+                    });
+                });
+                
+                // Add event listeners to undo result buttons
+                document.querySelectorAll('.undo-result').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const fixtureId = parseInt(e.target.dataset.id);
+                        if (confirm('Are you sure you want to undo this result?')) {
+                            await undoFixtureResult(fixtureId);
+                            await loadFixtures();
+                            await updateLeaderboard();
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading fixtures:', error);
+            }
+        }
+
+        // Open result modal
+        async function openResultModal(fixtureId) {
+            try {
+                const fixture = await getFixture(fixtureId);
+                const players = await getAllData(STORES.PLAYERS);
+                
+                const player1 = players.find(p => p.id === fixture.player1);
+                const player2 = players.find(p => p.id === fixture.player2);
+                
+                if (!player1 || !player2) {
+                    alert('Player not found');
+                    return;
+                }
+                
+                currentFixture = fixture;
+                elements.modalTitle.textContent = `Record Result: ${player1.name} vs ${player2.name}`;
+                elements.player1Score.value = fixture.player1Score || 0;
+                elements.player2Score.value = fixture.player2Score || 0;
+                elements.player1BallsLeft.value = fixture.player1BallsLeft || 0; // NEW: Set balls left
+                elements.player2BallsLeft.value = fixture.player2BallsLeft || 0; // NEW: Set balls left
+                elements.resultModal.style.display = 'flex';
+            } catch (error) {
+                console.error('Error opening result modal:', error);
+            }
+        }
+
+        // Get a specific fixture
+        function getFixture(fixtureId) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORES.FIXTURES], 'readonly');
+                const store = transaction.objectStore(STORES.FIXTURES);
+                const request = store.get(fixtureId);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        // Save result
+        async function saveResult() {
+            try {
+                if (!currentFixture) return;
+                
+                const player1Score = parseInt(elements.player1Score.value);
+                const player2Score = parseInt(elements.player2Score.value);
+                const player1BallsLeft = parseInt(elements.player1BallsLeft.value); // NEW: Get balls left
+                const player2BallsLeft = parseInt(elements.player2BallsLeft.value); // NEW: Get balls left
+                
+                if (isNaN(player1Score) || isNaN(player2Score) || 
+                    isNaN(player1BallsLeft) || isNaN(player2BallsLeft)) { // NEW: Validate balls left
+                    alert('Please enter valid scores and balls left');
+                    return;
+                }
+                
+                // NEW: Validate balls left (0-7)
+                if (player1BallsLeft < 0 || player1BallsLeft > 7 || 
+                    player2BallsLeft < 0 || player2BallsLeft > 7) {
+                    alert('Balls left must be between 0 and 7');
+                    return;
+                }
+                
+                currentFixture.player1Score = player1Score;
+                currentFixture.player2Score = player2Score;
+                currentFixture.player1BallsLeft = player1BallsLeft; // NEW: Save balls left
+                currentFixture.player2BallsLeft = player2BallsLeft; // NEW: Save balls left
+                currentFixture.status = 'completed';
+                currentFixture.playedDate = new Date().toISOString();
+                
+                await updateData(STORES.FIXTURES, currentFixture);
+                elements.resultModal.style.display = 'none';
+                await loadFixtures();
+                await updateLeaderboard();
+            } catch (error) {
+                console.error('Error saving result:', error);
+            }
+        }
+
+        // Undo fixture result
+        async function undoFixtureResult(fixtureId) {
+            try {
+                const fixture = await getFixture(fixtureId);
+                fixture.player1Score = null;
+                fixture.player2Score = null;
+                fixture.player1BallsLeft = 0; // NEW: Reset balls left
+                fixture.player2BallsLeft = 0; // NEW: Reset balls left
+                fixture.status = 'scheduled';
+                fixture.playedDate = null;
+                
+                await updateData(STORES.FIXTURES, fixture);
+            } catch (error) {
+                console.error('Error undoing fixture result:', error);
+            }
+        }
+
+        // Update leaderboard
+        async function updateLeaderboard() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                const fixtures = await getAllData(STORES.FIXTURES);
+                
+                // Initialize player stats
+                const playerStats = {};
+                players.forEach(player => {
+                    playerStats[player.id] = {
+                        id: player.id,
+                        name: player.name,
+                        played: 0,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        ballsFor: 0,      // NEW: Balls scored by the player
+                        ballsAgainst: 0,   // NEW: Balls scored against the player
+                        points: 0
+                    };
+                });
+                
+                // Calculate stats from completed fixtures
+                for (const fixture of fixtures) {
+                    if (fixture.status !== 'completed') continue;
+                    
+                    const player1Id = fixture.player1;
+                    const player2Id = fixture.player2;
+                    
+                    // Update games played
+                    playerStats[player1Id].played++;
+                    playerStats[player2Id].played++;
+                    
+                    // NEW: Update balls for and against
+                    playerStats[player1Id].ballsFor += fixture.player1Score;
+                    playerStats[player1Id].ballsAgainst += fixture.player2Score;
+                    
+                    playerStats[player2Id].ballsFor += fixture.player2Score;
+                    playerStats[player2Id].ballsAgainst += fixture.player1Score;
+                    
+                    // Update wins, draws, losses and points
+                    if (fixture.player1Score > fixture.player2Score) {
+                        playerStats[player1Id].wins++;
+                        playerStats[player1Id].points += 3;
+                        playerStats[player2Id].losses++;
+                    } else if (fixture.player2Score > fixture.player1Score) {
+                        playerStats[player2Id].wins++;
+                        playerStats[player2Id].points += 3;
+                        playerStats[player1Id].losses++;
+                    } else {
+                        playerStats[player1Id].draws++;
+                        playerStats[player1Id].points += 1;
+                        playerStats[player2Id].draws++;
+                        playerStats[player2Id].points += 1;
+                    }
+                }
+                
+                // Convert to array and sort by points (descending)
+                const leaderboardData = Object.values(playerStats).sort((a, b) => {
+                    // First by points
+                    if (b.points !== a.points) {
+                        return b.points - a.points;
+                    }
+                    
+                    // Then by goal difference (balls for - balls against)
+                    const goalDiffA = a.ballsFor - a.ballsAgainst;
+                    const goalDiffB = b.ballsFor - b.ballsAgainst;
+                    if (goalDiffB !== goalDiffA) {
+                        return goalDiffB - goalDiffA;
+                    }
+                    
+                    // Then by balls for
+                    if (b.ballsFor !== a.ballsFor) {
+                        return b.ballsFor - a.ballsFor;
+                    }
+                    
+                    // Finally by name
+                    return a.name.localeCompare(b.name);
+                });
+                
+                // Update leaderboard table
+                elements.leaderboardBody.innerHTML = '';
+                leaderboardData.forEach((player, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Add special classes for top 3 positions
+                    if (index === 0) {
+                        row.classList.add('leaderboard-top-1');
+                    } else if (index === 1) {
+                        row.classList.add('leaderboard-top-2');
+                    } else if (index === 2) {
+                        row.classList.add('leaderboard-top-3');
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${player.name}</td>
+                        <td>${player.played}</td>
+                        <td>${player.wins}</td>
+                        <td>${player.draws}</td>
+                        <td>${player.losses}</td>
+                        <td>${player.ballsFor}</td>  <!-- NEW: Balls For column -->
+                        <td>${player.ballsAgainst}</td>  <!-- NEW: Balls Against column -->
+                        <td class="points">${player.points}</td>
+                    `;
+                    elements.leaderboardBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error updating leaderboard:', error);
+            }
+        }
+
+        // Load player stats
+        async function loadPlayerStats() {
+            try {
+                const playerId = parseInt(elements.playerSelect.value);
+                if (!playerId) {
+                    elements.playerStats.innerHTML = '<p>Select a player to view their statistics</p>';
+                    return;
+                }
+                
+                const players = await getAllData(STORES.PLAYERS);
+                const fixtures = await getAllData(STORES.FIXTURES);
+                
+                const player = players.find(p => p.id === playerId);
+                if (!player) {
+                    elements.playerStats.innerHTML = '<p>Player not found</p>';
+                    return;
+                }
+                
+                // Calculate player stats
+                let played = 0;
+                let wins = 0;
+                let draws = 0;
+                let losses = 0;
+                let ballsFor = 0;      // NEW: Balls scored by the player
+                let ballsAgainst = 0;   // NEW: Balls scored against the player
+                let points = 0;
+                
+                for (const fixture of fixtures) {
+                    if (fixture.status !== 'completed') continue;
+                    
+                    if (fixture.player1 === playerId) {
+                        played++;
+                        ballsFor += fixture.player1Score;      // NEW: Add player's balls
+                        ballsAgainst += fixture.player2Score;  // NEW: Add opponent's balls
+                        
+                        if (fixture.player1Score > fixture.player2Score) {
+                            wins++;
+                            points += 3;
+                        } else if (fixture.player1Score < fixture.player2Score) {
+                            losses++;
+                        } else {
+                            draws++;
+                            points += 1;
+                        }
+                    } else if (fixture.player2 === playerId) {
+                        played++;
+                        ballsFor += fixture.player2Score;      // NEW: Add player's balls
+                        ballsAgainst += fixture.player1Score;  // NEW: Add opponent's balls
+                        
+                        if (fixture.player2Score > fixture.player1Score) {
+                            wins++;
+                            points += 3;
+                        } else if (fixture.player2Score < fixture.player1Score) {
+                            losses++;
+                        } else {
+                            draws++;
+                            points += 1;
+                        }
+                    }
+                }
+                
+                // Calculate additional stats
+                const winPercentage = played > 0 ? ((wins / played) * 100).toFixed(1) : 0;
+                const averageBallsFor = played > 0 ? (ballsFor / played).toFixed(1) : 0;
+                const averageBallsAgainst = played > 0 ? (ballsAgainst / played).toFixed(1) : 0;
+                
+                elements.playerStats.innerHTML = `
+                    <div class="player-stats-container">
+                        <h3>${player.name}'s Statistics</h3>
+                        <div class="player-stats-item">
+                            <span>Games Played:</span>
+                            <span>${played}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Wins:</span>
+                            <span>${wins}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Draws:</span>
+                            <span>${draws}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Losses:</span>
+                            <span>${losses}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Balls For:</span>
+                            <span>${ballsFor}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Balls Against:</span>
+                            <span>${ballsAgainst}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Goal Difference:</span>
+                            <span>${ballsFor - ballsAgainst}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Points:</span>
+                            <span class="points">${points}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Win Percentage:</span>
+                            <span>${winPercentage}%</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Average Balls For:</span>
+                            <span>${averageBallsFor}</span>
+                        </div>
+                        <div class="player-stats-item">
+                            <span>Average Balls Against:</span>
+                            <span>${averageBallsAgainst}</span>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error loading player stats:', error);
+            }
+        }
+
+        // Load contribution status
+        async function loadContributionStatus() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                const contributionAmount = await getSetting('contributionAmount') || 20;
+                
+                // Update contribution amount input
+                elements.contributionAmount.value = contributionAmount;
+                
+                // Calculate total pot
+                let paidCount = 0;
+                let paymentStatusHTML = '';
+                
+                for (const player of players) {
+                    const paid = player.paid || false;
+                    if (paid) paidCount++;
+                    
+                    paymentStatusHTML += `
+                        <tr>
+                            <td>${player.name}</td>
+                            <td>$${contributionAmount}</td>
+                            <td><span class="status-badge ${paid ? 'paid-badge' : 'pending-badge'}">${paid ? 'Paid' : 'Pending'}</span></td>
+                            <td>
+                                ${!paid ? 
+                                    `<button class="success cashier-only mark-paid" data-id="${player.id}">Mark Paid</button>` : 
+                                    `<button class="warning cashier-only mark-unpaid" data-id="${player.id}">Mark Unpaid</button>`
+                                }
+                            </td>
+                        </tr>
+                    `;
+                }
+                
+                const totalPot = paidCount * contributionAmount;
+                elements.potAmount.textContent = `Total Pot: $${totalPot}`;
+                elements.paymentStatusBody.innerHTML = paymentStatusHTML;
+                
+                // Add event listeners to mark paid buttons
+                document.querySelectorAll('.mark-paid').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const playerId = parseInt(e.target.dataset.id);
+                        await markPlayerPaidStatus(playerId, true);
+                        await loadContributionStatus();
+                        await updatePrizeDistribution();
+                    });
+                });
+                
+                // Add event listeners to mark unpaid buttons
+                document.querySelectorAll('.mark-unpaid').forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        const playerId = parseInt(e.target.dataset.id);
+                        await markPlayerPaidStatus(playerId, false);
+                        await loadContributionStatus();
+                        await updatePrizeDistribution();
+                    });
+                });
+                
+                // Update prize distribution
+                await updatePrizeDistribution();
+            } catch (error) {
+                console.error('Error loading contribution status:', error);
+            }
+        }
+
+        // Mark player paid status
+        async function markPlayerPaidStatus(playerId, paid) {
+            try {
+                const transaction = db.transaction([STORES.PLAYERS], 'readwrite');
+                const store = transaction.objectStore(STORES.PLAYERS);
+                const request = store.get(playerId);
+                
+                request.onerror = (error) => console.error('Error getting player:', error);
+                request.onsuccess = () => {
+                    const player = request.result;
+                    if (player) {
+                        player.paid = paid;
+                        store.put(player);
+                    }
+                };
+            } catch (error) {
+                console.error('Error marking player paid status:', error);
+            }
+        }
+
+        // Update prize distribution
+        async function updatePrizeDistribution() {
+            try {
+                const players = await getAllData(STORES.PLAYERS);
+                const fixtures = await getAllData(STORES.FIXTURES);
+                const contributionAmount = await getSetting('contributionAmount') || 20;
+                const winnersCount = parseInt(await getSetting('winnersCount') || 3);
+                const firstPrizePercentage = parseInt(await getSetting('firstPrizePercentage') || 40);
+                
+                // Update inputs
+                elements.winnersCount.value = winnersCount;
+                elements.firstPrizePercentage.value = firstPrizePercentage;
+                
+                // Calculate paid players count
+                const paidPlayers = players.filter(p => p.paid);
+                const totalPot = paidPlayers.length * contributionAmount;
+                
+                // Calculate player stats for ranking
+                const playerStats = {};
+                players.forEach(player => {
+                    playerStats[player.id] = {
+                        id: player.id,
+                        name: player.name,
+                        played: 0,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        ballsFor: 0,      // NEW: Balls scored by the player
+                        ballsAgainst: 0,   // NEW: Balls scored against the player
+                        points: 0
+                    };
+                });
+                
+                // Calculate stats from completed fixtures
+                for (const fixture of fixtures) {
+                    if (fixture.status !== 'completed') continue;
+                    
+                    const player1Id = fixture.player1;
+                    const player2Id = fixture.player2;
+                    
+                    // Update games played
+                    playerStats[player1Id].played++;
+                    playerStats[player2Id].played++;
+                    
+                    // NEW: Update balls for and against
+                    playerStats[player1Id].ballsFor += fixture.player1Score;
+                    playerStats[player1Id].ballsAgainst += fixture.player2Score;
+                    
+                    playerStats[player2Id].ballsFor += fixture.player2Score;
+                    playerStats[player2Id].ballsAgainst += fixture.player1Score;
+                    
+                    // Update wins, draws, losses and points
+                    if (fixture.player1Score > fixture.player2Score) {
+                        playerStats[player1Id].wins++;
+                        playerStats[player1Id].points += 3;
+                        playerStats[player2Id].losses++;
+                    } else if (fixture.player2Score > fixture.player1Score) {
+                        playerStats[player2Id].wins++;
+                        playerStats[player2Id].points += 3;
+                        playerStats[player1Id].losses++;
+                    } else {
+                        playerStats[player1Id].draws++;
+                        playerStats[player1Id].points += 1;
+                        playerStats[player2Id].draws++;
+                        playerStats[player2Id].points += 1;
+                    }
+                }
+                
+                // Convert to array and sort by points (descending)
+                const rankedPlayers = Object.values(playerStats).sort((a, b) => {
+                    // First by points
+                    if (b.points !== a.points) {
+                        return b.points - a.points;
+                    }
+                    
+                    // Then by goal difference (balls for - balls against)
+                    const goalDiffA = a.ballsFor - a.ballsAgainst;
+                    const goalDiffB = b.ballsFor - b.ballsAgainst;
+                    if (goalDiffB !== goalDiffA) {
+                        return goalDiffB - goalDiffA;
+                    }
+                    
+                    // Then by balls for
+                    if (b.ballsFor !== a.ballsFor) {
+                        return b.ballsFor - a.ballsFor;
+                    }
+                    
+                    // Finally by name
+                    return a.name.localeCompare(b.name);
+                });
+                
+                // Calculate prize distribution
+                let distributionHTML = '';
+                if (rankedPlayers.length > 0 && totalPot > 0) {
+                    // Calculate prize amounts
+                    const prizeAmounts = [];
+                    let remainingPercentage = 100;
+                    
+                    for (let i = 0; i < winnersCount; i++) {
+                        if (i === 0) {
+                            prizeAmounts.push(firstPrizePercentage);
+                            remainingPercentage -= firstPrizePercentage;
+                        } else {
+                            // Distribute remaining percentage equally among other winners
+                            const percentage = Math.floor(remainingPercentage / (winnersCount - i));
+                            prizeAmounts.push(percentage);
+                            remainingPercentage -= percentage;
+                        }
+                    }
+                    
+                    // Display prize distribution
+                    distributionHTML = '<h3>Projected Prizes</h3>';
+                    for (let i = 0; i < Math.min(winnersCount, rankedPlayers.length); i++) {
+                        const player = rankedPlayers[i];
+                        const prize = (totalPot * prizeAmounts[i] / 100).toFixed(2);
+                        distributionHTML += `
+                            <div class="distribution-item">
+                                <span>${i + 1}. ${player.name}</span>
+                                <span>$${prize} (${prizeAmounts[i]}%)</span>
+                            </div>
+                        `;
+                    }
+                } else {
+                    distributionHTML = '<p>No players or no contributions yet</p>';
+                }
+                
+                elements.distributionList.innerHTML = distributionHTML;
+            } catch (error) {
+                console.error('Error updating prize distribution:', error);
+            }
+        }
+
+        // Export database
+        async function exportDatabase() {
+            try {
+                const data = {
+                    players: await getAllData(STORES.PLAYERS),
+                    fixtures: await getAllData(STORES.FIXTURES),
+                    users: await getAllData(STORES.USERS),
+                    settings: await getAllData(STORES.SETTINGS)
+                };
+                
+                const json = JSON.stringify(data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'pool_club_backup.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Database exported successfully!');
+            } catch (error) {
+                console.error('Error exporting database:', error);
+                alert('Error exporting database');
+            }
+        }
+
+        // Import database
+        async function importDatabase() {
+            try {
+                const file = elements.importFile.files[0];
+                if (!file) {
+                    alert('Please select a file to import');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        // Clear existing data
+                        const stores = [STORES.PLAYERS, STORES.FIXTURES, STORES.USERS, STORES.SETTINGS];
+                        for (const store of stores) {
+                            const allData = await getAllData(store);
+                            for (const item of allData) {
+                                await deleteData(store, item.id || item.key || item.username);
+                            }
+                        }
+                        
+                        // Import new data
+                        if (data.players) {
+                            for (const player of data.players) {
+                                await addData(STORES.PLAYERS, player);
+                            }
+                        }
+                        
+                        if (data.fixtures) {
+                            for (const fixture of data.fixtures) {
+                                await addData(STORES.FIXTURES, fixture);
+                            }
+                        }
+                        
+                        if (data.users) {
+                            for (const user of data.users) {
+                                await addData(STORES.USERS, user);
+                            }
+                        }
+                        
+                        if (data.settings) {
+                            for (const setting of data.settings) {
+                                await addData(STORES.SETTINGS, setting);
+                            }
+                        }
+                        
+                        // Reload UI
+                        await loadPlayersIntoDropdowns();
+                        await loadPlayerList();
+                        await loadFixtures();
+                        await updateLeaderboard();
+                        await loadContributionStatus();
+                        await loadUserList();
+                        
+                        alert('Database imported successfully!');
+                    } catch (error) {
+                        console.error('Error parsing imported file:', error);
+                        alert('Error importing database: Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            } catch (error) {
+                console.error('Error importing database:', error);
+                alert('Error importing database');
+            }
+        }
+
+        // Reset all data
+        async function resetAllData() {
+            try {
+                if (!confirm('Are you sure you want to reset all data? This cannot be undone.')) {
+                    return;
+                }
+                
+                // Clear all data from stores
+                const stores = [STORES.PLAYERS, STORES.FIXTURES, STORES.SETTINGS];
+                for (const store of stores) {
+                    const allData = await getAllData(store);
+                    for (const item of allData) {
+                        await deleteData(store, item.id || item.key);
+                    }
+                }
+                
+                // Keep users intact
+                
+                // Reload UI
+                await loadPlayersIntoDropdowns();
+                await loadPlayerList();
+                await loadFixtures();
+                await updateLeaderboard();
+                await loadContributionStatus();
+                
+                alert('All data has been reset successfully!');
+            } catch (error) {
+                console.error('Error resetting data:', error);
+                alert('Error resetting data');
+            }
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Tab navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+                });
+            });
+            
+            // Mobile menu toggle
+            elements.mobileMenuBtn.addEventListener('click', () => {
+                elements.tabsContainer.classList.toggle('active');
+            });
+            
+            // Login
+            elements.loginBtn.addEventListener('click', () => {
+                elements.mainContainer.classList.add('hidden');
+                elements.loginContainer.classList.remove('hidden');
+            });
+            
+            elements.logoutBtn.addEventListener('click', logout);
+            
+            elements.doLogin.addEventListener('click', async () => {
+                const username = document.getElementById('loginUsername').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                if (!username || !password) {
+                    elements.loginError.textContent = 'Please enter username and password';
+                    elements.loginError.style.display = 'block';
+                    return;
+                }
+                
+                const success = await login(username, password);
+                if (success) {
+                    elements.loginError.style.display = 'none';
+                } else {
+                    elements.loginError.textContent = 'Invalid username or password';
+                    elements.loginError.style.display = 'block';
+                }
+            });
+            
+            // Fixture generation
+            elements.generateFixtures.addEventListener('click', generateFixtures);
+            
+            // Filters
+            elements.filterPlayer.addEventListener('change', loadFixtures);
+            elements.filterStatus.addEventListener('change', loadFixtures);
+            
+            // Player stats
+            elements.playerSelect.addEventListener('change', loadPlayerStats);
+            
+            // Contribution settings
+            elements.updateContribution.addEventListener('click', async () => {
+                const amount = parseInt(elements.contributionAmount.value);
+                if (isNaN(amount) || amount < 0) {
+                    alert('Please enter a valid contribution amount');
+                    return;
+                }
+                
+                await setSetting('contributionAmount', amount);
+                await loadContributionStatus();
+                alert('Contribution amount updated successfully!');
+            });
+            
+            elements.updateDistribution.addEventListener('click', async () => {
+                const winnersCount = parseInt(elements.winnersCount.value);
+                const firstPrizePercentage = parseInt(elements.firstPrizePercentage.value);
+                
+                if (isNaN(winnersCount) || winnersCount < 1) {
+                    alert('Please enter a valid number of winners');
+                    return;
+                }
+                
+                if (isNaN(firstPrizePercentage) || firstPrizePercentage < 1 || firstPrizePercentage > 100) {
+                    alert('Please enter a valid percentage for first prize (1-100)');
+                    return;
+                }
+                
+                await setSetting('winnersCount', winnersCount);
+                await setSetting('firstPrizePercentage', firstPrizePercentage);
+                await updatePrizeDistribution();
+                alert('Prize distribution updated successfully!');
+            });
+            
+            elements.recordPayment.addEventListener('click', async () => {
+                const playerId = parseInt(elements.paymentPlayer.value);
+                if (!playerId) {
+                    alert('Please select a player');
+                    return;
+                }
+                
+                await markPlayerPaidStatus(playerId, true);
+                await loadContributionStatus();
+                alert('Payment recorded successfully!');
+            });
+            
+            // Player management
+            elements.addPlayer.addEventListener('click', async () => {
+                const name = elements.playerName.value.trim();
+                if (!name) {
+                    alert('Please enter a player name');
+                    return;
+                }
+                
+                await addData(STORES.PLAYERS, { name });
+                elements.playerName.value = '';
+                await loadPlayersIntoDropdowns();
+                await loadPlayerList();
+                alert('Player added successfully!');
+            });
+            
+            elements.resetData.addEventListener('click', resetAllData);
+            
+            // Database operations
+            elements.exportData.addEventListener('click', exportDatabase);
+            elements.importData.addEventListener('click', () => elements.importFile.click());
+            elements.importFile.addEventListener('change', importDatabase);
+            
+            // User management
+            elements.addUser.addEventListener('click', async () => {
+                const username = elements.username.value.trim();
+                const password = elements.password.value;
+                const role = elements.userRole.value;
+                
+                if (!username || !password) {
+                    alert('Please enter username and password');
+                    return;
+                }
+                
+                try {
+                    await addData(STORES.USERS, { username, password, role });
+                    elements.username.value = '';
+                    elements.password.value = '';
+                    await loadUserList();
+                    alert('User added successfully!');
+                } catch (error) {
+                    alert('Error adding user. Username may already exist.');
+                }
+            });
+            
+            // Result modal
+            elements.saveResult.addEventListener('click', saveResult);
+            elements.closeModal.addEventListener('click', () => {
+                elements.resultModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === elements.resultModal) {
+                    elements.resultModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize the application
+        async function initApp() {
+            try {
+                // Initialize database
+                await initDatabase();
+                
+                // Initialize default admin if needed
+                await initDefaultAdmin();
+                
+                // Check if user is already logged in
+                const savedUser = sessionStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUIForUserRole();
+                    elements.loginContainer.classList.add('hidden');
+                    elements.mainContainer.classList.remove('hidden');
+                } else {
+                    elements.mainContainer.classList.add('hidden');
+                    elements.loginContainer.classList.remove('hidden');
+                }
+                
+                // Load initial data
+                await loadPlayersIntoDropdowns();
+                await loadPlayerList();
+                await loadFixtures();
+                await updateLeaderboard();
+                await loadContributionStatus();
+                await loadUserList();
+                
+                // Setup event listeners
+                setupEventListeners();
+                
+                console.log('App initialized successfully');
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                alert('Error initializing application. Please check console for details.');
+            }
+        }
+
+        // Start the application
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
