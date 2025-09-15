@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pool Club Fixture System</title>
     <style>
-        /* Your existing CSS remains the same */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,7 +18,7 @@
             min-height: 100vh;
             padding: 10px;
             position: relative;
-            padding-bottom: 50px; /* Space for footer */
+            padding-bottom: 50px;
         }
         
         .container {
@@ -40,7 +39,7 @@
         }
         
         h1 {
-            font-size: 1.6rem; /* Reduced from 1.8rem */
+            font-size: 1.6rem;
             margin-bottom: 8px;
         }
         
@@ -54,8 +53,8 @@
         
         .user-info {
             color: white;
-            fontWeight: 600;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-weight: 600;
+            font-size: 0.8rem;
         }
         
         .auth-btn {
@@ -67,7 +66,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: background 0.3s;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-size: 0.8rem;
         }
         
         .auth-btn:hover {
@@ -81,11 +80,10 @@
             flex-wrap: wrap;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         
-        /* Hide scrollbar for Chrome, Safari and Opera */
         .tabs::-webkit-scrollbar {
             display: none;
         }
@@ -97,7 +95,7 @@
             font-weight: 600;
             transition: background 0.3s;
             white-space: nowrap;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
         
@@ -143,13 +141,13 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #ddd;
-            font-size: 1.2rem; /* Reduced from 1.3rem */
+            font-size: 1.2rem;
         }
         
         h3 {
             color: #2c3e50;
             margin: 20px 0 12px 0;
-            font-size: 1rem; /* Reduced from 1.1rem */
+            font-size: 1rem;
         }
         
         .form-group {
@@ -160,7 +158,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-size: 0.8rem;
         }
         
         input, select {
@@ -168,7 +166,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 16px;
         }
         
         button {
@@ -178,7 +176,7 @@
             padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.8rem; /* Reduced from 0.9rem */
+            font-size: 0.8rem;
             font-weight: 600;
             transition: background 0.3s;
             margin-top: 8px;
@@ -226,7 +224,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
-            font-size: 0.8rem; /* Reduced from 0.85rem */
+            font-size: 0.8rem;
         }
         
         th, td {
@@ -296,14 +294,14 @@
             text-align: center;
             line-height: 25px;
             margin-right: 8px;
-            font-size: 0.75rem; /* Reduced from 0.8rem */
+            font-size: 0.75rem;
         }
         
         .status-badge {
             display: inline-block;
             padding: 3px 6px;
             border-radius: 4px;
-            font-size: 0.7rem; /* Reduced from 0.75rem */
+            font-size: 0.7rem;
             font-weight: bold;
             margin-left: 8px;
         }
@@ -329,7 +327,7 @@
         }
         
         .pot-amount {
-            font-size: 1.1rem; /* Reduced from 1.2rem */
+            font-size: 1.1rem;
             font-weight: bold;
             color: #27ae60;
             text-align: center;
@@ -364,14 +362,14 @@
             text-align: center;
             margin-bottom: 15px;
             color: #2c3e50;
-            font-size: 1.2rem; /* Reduced */
+            font-size: 1.2rem;
         }
         
         .role-badge {
             display: inline-block;
             padding: 3px 6px;
             border-radius: 4px;
-            font-size: 0.65rem; /* Reduced from 0.7rem */
+            font-size: 0.65rem;
             font-weight: bold;
             margin-left: 8px;
             background: #3498db;
@@ -406,12 +404,11 @@
             color: white;
             padding: 4px 8px;
             border-radius: 4px;
-            font-size: 0.65rem; /* Reduced from 0.7rem */
+            font-size: 0.65rem;
             opacity: 0.9;
             z-index: 100;
         }
         
-        /* Result modal */
         .modal {
             display: none;
             position: fixed;
@@ -452,7 +449,6 @@
             padding: 0 10px;
         }
         
-        /* Player stats styles */
         .player-stats-container {
             background: white;
             padding: 15px;
@@ -471,20 +467,18 @@
             border-bottom: none;
         }
         
-        /* Leaderboard highlighting */
         .leaderboard-top-1 {
-            background-color: #FFD700 !important; /* Gold */
+            background-color: #FFD700 !important;
         }
         
         .leaderboard-top-2 {
-            background-color: #C0C0C0 !important; /* Silver */
+            background-color: #C0C0C0 !important;
         }
         
         .leaderboard-top-3 {
-            background-color: #CD7F32 !important; /* Bronze */
+            background-color: #CD7F32 !important;
         }
         
-        /* Footer styles */
         footer {
             position: fixed;
             bottom: 0;
@@ -498,7 +492,6 @@
             z-index: 100;
         }
         
-        /* Mobile-specific styles */
         @media (min-width: 768px) {
             .app-container {
                 flex-direction: row;
@@ -534,7 +527,7 @@
             }
             
             h1 {
-                font-size: 1.8rem; /* Reduced from 2.2rem */
+                font-size: 1.8rem;
             }
             
             button {
@@ -547,7 +540,6 @@
         }
         
         @media (max-width: 767px) {
-            /* Mobile-specific improvements */
             .container {
                 border-radius: 8px;
                 margin: 5px;
@@ -559,13 +551,13 @@
             }
             
             h1 {
-                font-size: 1.3rem; /* Reduced from 1.5rem */
+                font-size: 1.3rem;
                 margin-bottom: 5px;
             }
             
             .tab {
                 padding: 10px 12px;
-                font-size: 0.75rem; /* Reduced from 0.8rem */
+                font-size: 0.75rem;
             }
             
             .tab-content {
@@ -578,44 +570,40 @@
             }
             
             h2 {
-                font-size: 1.1rem; /* Reduced from 1.2rem */
+                font-size: 1.1rem;
                 margin-bottom: 12px;
             }
             
             h3 {
-                font-size: 0.9rem; /* Reduced from 1rem */
+                font-size: 0.9rem;
                 margin: 15px 0 10px 0;
             }
             
             th, td {
                 padding: 8px 6px;
-                font-size: 0.75rem; /* Reduced from 0.8rem */
+                font-size: 0.75rem;
             }
             
             .pot-amount {
-                font-size: 1rem; /* Reduced from 1.1rem */
+                font-size: 1rem;
                 padding: 10px;
                 margin: 10px 0;
             }
             
-            /* Improve button sizing on mobile */
             button {
                 padding: 12px 10px;
-                font-size: 0.85rem; /* Reduced from 0.9rem */
+                font-size: 0.85rem;
                 margin: 8px 0;
             }
             
-            /* Improve form elements on mobile */
             input, select {
                 padding: 12px 10px;
             }
             
-            /* Better table scrolling on mobile */
             .fixture-list {
                 max-height: 50vh;
             }
             
-            /* Improve fixture items on mobile */
             .fixture-item {
                 padding: 10px;
             }
@@ -624,7 +612,6 @@
                 flex-direction: column;
             }
             
-            /* Adjust auth section for mobile */
             .auth-section {
                 flex-direction: column;
                 gap: 8px;
@@ -632,14 +619,13 @@
         }
         
         @media (max-width: 480px) {
-            /* Extra small devices */
             h1 {
-                font-size: 1.2rem; /* Reduced from 1.4rem */
+                font-size: 1.2rem;
             }
             
             .tab {
                 padding: 8px 10px;
-                font-size: 0.7rem; /* Reduced from 0.75rem */
+                font-size: 0.7rem;
             }
             
             .fixture-item {
@@ -650,20 +636,18 @@
                 width: 22px;
                 height: 22px;
                 line-height: 22px;
-                font-size: 0.65rem; /* Reduced from 0.7rem */
+                font-size: 0.65rem;
             }
             
             .status-badge {
-                font-size: 0.65rem; /* Reduced from 0.7rem */
+                font-size: 0.65rem;
                 margin-left: 5px;
             }
             
-            /* Make sure tables are scrollable on small screens */
             .fixture-section, .form-section {
                 overflow-x: auto;
             }
             
-            /* Adjust padding for very small screens */
             .tab-content {
                 padding: 10px 8px;
             }
@@ -673,20 +657,19 @@
             }
         }
         
-        /* Fix for very small screens (e.g., iPhone 5/SE) */
         @media (max-width: 320px) {
             h1 {
-                font-size: 1.1rem; /* Reduced from 1.3rem */
+                font-size: 1.1rem;
             }
             
             .tab {
                 padding: 8px;
-                font-size: 0.65rem; /* Reduced from 0.7rem */
+                font-size: 0.65rem;
             }
             
             button {
                 padding: 10px 8px;
-                font-size: 0.8rem; /* Reduced from 0.85rem */
+                font-size: 0.8rem;
             }
             
             input, select {
@@ -694,13 +677,11 @@
             }
         }
         
-        /* Special fix for table responsiveness */
         .table-container {
             width: 100%;
             overflow-x: auto;
         }
         
-        /* Improve login form on mobile */
         @media (max-width: 767px) {
             .login-container {
                 margin: 20px auto;
@@ -709,7 +690,6 @@
             }
         }
         
-        /* Mobile menu for small screens */
         .mobile-menu-btn {
             display: none;
             background: #2c3e50;
@@ -779,7 +759,6 @@
                     <h2>Generate Fixtures</h2>
                     <p>Generate a round-robin fixture where each player plays every other player multiple times</p>
                     
-                    <!-- NEW: Add dropdown to select number of games -->
                     <div class="form-group">
                         <label for="gamesPerMatchup">Number of Games per Matchup</label>
                         <select id="gamesPerMatchup">
@@ -805,7 +784,7 @@
                         <select id="filterStatus">
                             <option value="all">All Fixtures</option>
                             <option value="completed">Completed Only</option>
-                            <option value="scheduled">Upcoming Only</option> <!-- Fixed: changed from "upcoming" to "scheduled" -->
+                            <option value="scheduled">Upcoming Only</option>
                         </select>
                     </div>
                 </div>
@@ -830,7 +809,6 @@
                         </select>
                     </div>
                     <div id="playerStats">
-                        <!-- Player stats will be displayed here -->
                         <p>Select a player to view their statistics</p>
                     </div>
                 </div>
@@ -847,8 +825,7 @@
                                     <th>Wins</th>
                                     <th>Draws</th>
                                     <th>Losses</th>
-                                    <th>Balls For</th>
-                                    <th>Balls Against</th>
+                                    <th>Goal Difference</th>
                                     <th>Points</th>
                                 </tr>
                             </thead>
@@ -921,7 +898,6 @@
                     
                     <h3>Prize Distribution</h3>
                     <div id="prizeDistribution">
-                        <!-- Prize distribution will be shown here -->
                         <div class="distribution-list" id="distributionList">
                         </div>
                     </div>
@@ -1028,7 +1004,6 @@
         <p id="loginError" style="color: #e74c3c; margin-top: 15px; display: none;">Invalid username or password</p>
     </div>
 
-    <!-- Result Modal -->
     <div class="modal" id="resultModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1064,16 +1039,13 @@
     </footer>
 
     <script>
-        // Database setup
         const DB_NAME = 'PoolClubDB';
         const DB_VERSION = 1;
         let db = null;
         
-        // Current user
         let currentUser = null;
         let currentFixture = null;
         
-        // Store references to DOM elements
         const elements = {
             mainContainer: document.getElementById('main-container'),
             loginContainer: document.getElementById('login-container'),
@@ -1122,11 +1094,9 @@
             player2BallsLeft: document.getElementById('player2BallsLeft'),
             saveResult: document.getElementById('saveResult'),
             closeModal: document.getElementById('closeModal'),
-            // NEW: Add reference to games per matchup dropdown
             gamesPerMatchup: document.getElementById('gamesPerMatchup')
         };
 
-        // Object stores
         const STORES = {
             USERS: 'users',
             PLAYERS: 'players',
@@ -1134,7 +1104,6 @@
             SETTINGS: 'settings'
         };
 
-        // Initialize the database
         function initDatabase() {
             return new Promise((resolve, reject) => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -1155,7 +1124,6 @@
                 request.onupgradeneeded = (event) => {
                     const db = event.target.result;
                     
-                    // Create object stores if they don't exist
                     if (!db.objectStoreNames.contains(STORES.USERS)) {
                         const userStore = db.createObjectStore(STORES.USERS, { keyPath: 'username' });
                         userStore.createIndex('username', 'username', { unique: true });
@@ -1180,7 +1148,6 @@
             });
         }
 
-        // Generic function to add data to a store
         function addData(storeName, data) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([storeName], 'readwrite');
@@ -1192,9 +1159,8 @@
             });
         }
 
-        // Generic function to get all data from a store
         function getAllData(storeName) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) {
                 const transaction = db.transaction([storeName], 'readonly');
                 const store = transaction.objectStore(storeName);
                 const request = store.getAll();
@@ -1204,7 +1170,6 @@
             });
         }
 
-        // Generic function to update data in a store
         function updateData(storeName, data) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([storeName], 'readwrite');
@@ -1216,7 +1181,6 @@
             });
         }
 
-        // Generic function to delete data from a store
         function deleteData(storeName, key) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([storeName], 'readwrite');
@@ -1228,7 +1192,6 @@
             });
         }
 
-        // Get a specific setting by key
         function getSetting(key) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORES.SETTINGS], 'readonly');
@@ -1240,7 +1203,6 @@
             });
         }
 
-        // Set a specific setting by key
         function setSetting(key, value) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORES.SETTINGS], 'readwrite');
@@ -1252,14 +1214,13 @@
             });
         }
 
-        // Initialize default admin user if none exists
         async function initDefaultAdmin() {
             try {
                 const users = await getAllData(STORES.USERS);
                 if (users.length === 0) {
                     await addData(STORES.USERS, {
                         username: 'admin',
-                        password: 'admin123', // In a real app, this should be hashed
+                        password: 'admin123',
                         role: 'admin'
                     });
                     console.log('Default admin user created');
@@ -1269,7 +1230,6 @@
             }
         }
 
-        // Login function
         async function login(username, password) {
             try {
                 const users = await getAllData(STORES.USERS);
@@ -1290,7 +1250,6 @@
             }
         }
 
-        // Logout function
         function logout() {
             currentUser = null;
             sessionStorage.removeItem('currentUser');
@@ -1298,7 +1257,6 @@
             elements.loginContainer.classList.remove('hidden');
         }
 
-        // Update UI based on user role
         function updateUIForUserRole() {
             if (!currentUser) return;
             
@@ -1311,7 +1269,6 @@
             elements.loginBtn.classList.add('hidden');
             elements.logoutBtn.classList.remove('hidden');
             
-            // Show/hide elements based on role
             document.querySelectorAll('.admin-only').forEach(el => {
                 el.style.display = currentUser.role === 'admin' ? 'block' : 'none';
             });
@@ -1325,12 +1282,10 @@
             });
         }
 
-        // Load players into dropdowns
         async function loadPlayersIntoDropdowns() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
                 
-                // Filter player dropdown
                 elements.filterPlayer.innerHTML = '<option value="all">All Players</option>';
                 elements.paymentPlayer.innerHTML = '<option value="">Select a player</option>';
                 elements.playerSelect.innerHTML = '<option value="">Select a player</option>';
@@ -1345,7 +1300,6 @@
             }
         }
 
-        // Load player list
         async function loadPlayerList() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
@@ -1363,7 +1317,6 @@
                     elements.playerListBody.appendChild(row);
                 });
                 
-                // Add event listeners to delete buttons
                 document.querySelectorAll('.delete-player').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const playerId = parseInt(e.target.dataset.id);
@@ -1380,13 +1333,10 @@
             }
         }
 
-        // Delete a player and their fixtures
         async function deletePlayer(playerId) {
             try {
-                // Delete player
                 await deleteData(STORES.PLAYERS, playerId);
                 
-                // Delete fixtures involving this player
                 const fixtures = await getAllData(STORES.FIXTURES);
                 for (const fixture of fixtures) {
                     if (fixture.player1 === playerId || fixture.player2 === playerId) {
@@ -1398,7 +1348,6 @@
             }
         }
 
-        // Load user list
         async function loadUserList() {
             try {
                 const users = await getAllData(STORES.USERS);
@@ -1419,7 +1368,6 @@
                     elements.userListBody.appendChild(row);
                 });
                 
-                // Add event listeners to delete buttons
                 document.querySelectorAll('.delete-user').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const username = e.target.dataset.username;
@@ -1434,7 +1382,6 @@
             }
         }
 
-        // Generate fixtures
         async function generateFixtures() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
@@ -1443,20 +1390,16 @@
                     return;
                 }
                 
-                // Get the number of games per matchup from the dropdown
                 const gamesPerMatchup = parseInt(elements.gamesPerMatchup.value);
                 
-                // Clear existing fixtures
                 const fixtures = await getAllData(STORES.FIXTURES);
                 for (const fixture of fixtures) {
                     await deleteData(STORES.FIXTURES, fixture.id);
                 }
                 
-                // Generate round-robin fixtures
                 let fixtureId = 1;
                 for (let i = 0; i < players.length; i++) {
                     for (let j = i + 1; j < players.length; j++) {
-                        // Create multiple games per matchup
                         for (let game = 1; game <= gamesPerMatchup; game++) {
                             await addData(STORES.FIXTURES, {
                                 id: fixtureId++,
@@ -1464,8 +1407,8 @@
                                 player2: players[j].id,
                                 player1Score: null,
                                 player2Score: null,
-                                player1BallsLeft: 0, // NEW: Initialize balls left
-                                player2BallsLeft: 0, // NEW: Initialize balls left
+                                player1BallsLeft: 0,
+                                player2BallsLeft: 0,
                                 status: 'scheduled',
                                 playedDate: null
                             });
@@ -1481,7 +1424,6 @@
             }
         }
 
-        // Load fixtures
         async function loadFixtures() {
             try {
                 const fixtures = await getAllData(STORES.FIXTURES);
@@ -1491,7 +1433,6 @@
                 
                 elements.fixtureList.innerHTML = '';
                 
-                // Sort fixtures: completed first, then by player names
                 fixtures.sort((a, b) => {
                     if (a.status === 'completed' && b.status !== 'completed') return -1;
                     if (a.status !== 'completed' && b.status === 'completed') return 1;
@@ -1505,7 +1446,6 @@
                 });
                 
                 for (const fixture of fixtures) {
-                    // Apply filters
                     if (filterPlayerId !== 'all' && fixture.player1 !== parseInt(filterPlayerId) && fixture.player2 !== parseInt(filterPlayerId)) {
                         continue;
                     }
@@ -1559,7 +1499,6 @@
                     elements.fixtureList.appendChild(fixtureElement);
                 }
                 
-                // Add event listeners to record result buttons
                 document.querySelectorAll('.record-result').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const fixtureId = parseInt(e.target.dataset.id);
@@ -1567,7 +1506,6 @@
                     });
                 });
                 
-                // Add event listeners to undo result buttons
                 document.querySelectorAll('.undo-result').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const fixtureId = parseInt(e.target.dataset.id);
@@ -1583,7 +1521,6 @@
             }
         }
 
-        // Open result modal
         async function openResultModal(fixtureId) {
             try {
                 const fixture = await getFixture(fixtureId);
@@ -1601,15 +1538,14 @@
                 elements.modalTitle.textContent = `Record Result: ${player1.name} vs ${player2.name}`;
                 elements.player1Score.value = fixture.player1Score || 0;
                 elements.player2Score.value = fixture.player2Score || 0;
-                elements.player1BallsLeft.value = fixture.player1BallsLeft || 0; // NEW: Set balls left
-                elements.player2BallsLeft.value = fixture.player2BallsLeft || 0; // NEW: Set balls left
+                elements.player1BallsLeft.value = fixture.player1BallsLeft || 0;
+                elements.player2BallsLeft.value = fixture.player2BallsLeft || 0;
                 elements.resultModal.style.display = 'flex';
             } catch (error) {
                 console.error('Error opening result modal:', error);
             }
         }
 
-        // Get a specific fixture
         function getFixture(fixtureId) {
             return new Promise((resolve, reject) => {
                 const transaction = db.transaction([STORES.FIXTURES], 'readonly');
@@ -1621,23 +1557,21 @@
             });
         }
 
-        // Save result
         async function saveResult() {
             try {
                 if (!currentFixture) return;
                 
                 const player1Score = parseInt(elements.player1Score.value);
                 const player2Score = parseInt(elements.player2Score.value);
-                const player1BallsLeft = parseInt(elements.player1BallsLeft.value); // NEW: Get balls left
-                const player2BallsLeft = parseInt(elements.player2BallsLeft.value); // NEW: Get balls left
+                const player1BallsLeft = parseInt(elements.player1BallsLeft.value);
+                const player2BallsLeft = parseInt(elements.player2BallsLeft.value);
                 
                 if (isNaN(player1Score) || isNaN(player2Score) || 
-                    isNaN(player1BallsLeft) || isNaN(player2BallsLeft)) { // NEW: Validate balls left
+                    isNaN(player1BallsLeft) || isNaN(player2BallsLeft)) {
                     alert('Please enter valid scores and balls left');
                     return;
                 }
                 
-                // NEW: Validate balls left (0-7)
                 if (player1BallsLeft < 0 || player1BallsLeft > 7 || 
                     player2BallsLeft < 0 || player2BallsLeft > 7) {
                     alert('Balls left must be between 0 and 7');
@@ -1646,8 +1580,8 @@
                 
                 currentFixture.player1Score = player1Score;
                 currentFixture.player2Score = player2Score;
-                currentFixture.player1BallsLeft = player1BallsLeft; // NEW: Save balls left
-                currentFixture.player2BallsLeft = player2BallsLeft; // NEW: Save balls left
+                currentFixture.player1BallsLeft = player1BallsLeft;
+                currentFixture.player2BallsLeft = player2BallsLeft;
                 currentFixture.status = 'completed';
                 currentFixture.playedDate = new Date().toISOString();
                 
@@ -1660,14 +1594,13 @@
             }
         }
 
-        // Undo fixture result
         async function undoFixtureResult(fixtureId) {
             try {
                 const fixture = await getFixture(fixtureId);
                 fixture.player1Score = null;
                 fixture.player2Score = null;
-                fixture.player1BallsLeft = 0; // NEW: Reset balls left
-                fixture.player2BallsLeft = 0; // NEW: Reset balls left
+                fixture.player1BallsLeft = 0;
+                fixture.player2BallsLeft = 0;
                 fixture.status = 'scheduled';
                 fixture.playedDate = null;
                 
@@ -1677,13 +1610,11 @@
             }
         }
 
-        // Update leaderboard
         async function updateLeaderboard() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
                 const fixtures = await getAllData(STORES.FIXTURES);
                 
-                // Initialize player stats
                 const playerStats = {};
                 players.forEach(player => {
                     playerStats[player.id] = {
@@ -1693,31 +1624,27 @@
                         wins: 0,
                         draws: 0,
                         losses: 0,
-                        ballsFor: 0,      // NEW: Balls scored by the player
-                        ballsAgainst: 0,   // NEW: Balls scored against the player
+                        ballsFor: 0,
+                        ballsAgainst: 0,
                         points: 0
                     };
                 });
                 
-                // Calculate stats from completed fixtures
                 for (const fixture of fixtures) {
                     if (fixture.status !== 'completed') continue;
                     
                     const player1Id = fixture.player1;
                     const player2Id = fixture.player2;
                     
-                    // Update games played
                     playerStats[player1Id].played++;
                     playerStats[player2Id].played++;
                     
-                    // NEW: Update balls for and against
                     playerStats[player1Id].ballsFor += fixture.player1Score;
                     playerStats[player1Id].ballsAgainst += fixture.player2Score;
                     
                     playerStats[player2Id].ballsFor += fixture.player2Score;
                     playerStats[player2Id].ballsAgainst += fixture.player1Score;
                     
-                    // Update wins, draws, losses and points
                     if (fixture.player1Score > fixture.player2Score) {
                         playerStats[player1Id].wins++;
                         playerStats[player1Id].points += 3;
@@ -1734,35 +1661,28 @@
                     }
                 }
                 
-                // Convert to array and sort by points (descending)
                 const leaderboardData = Object.values(playerStats).sort((a, b) => {
-                    // First by points
                     if (b.points !== a.points) {
                         return b.points - a.points;
                     }
                     
-                    // Then by goal difference (balls for - balls against)
                     const goalDiffA = a.ballsFor - a.ballsAgainst;
                     const goalDiffB = b.ballsFor - b.ballsAgainst;
                     if (goalDiffB !== goalDiffA) {
                         return goalDiffB - goalDiffA;
                     }
                     
-                    // Then by balls for
                     if (b.ballsFor !== a.ballsFor) {
                         return b.ballsFor - a.ballsFor;
                     }
                     
-                    // Finally by name
                     return a.name.localeCompare(b.name);
                 });
                 
-                // Update leaderboard table
                 elements.leaderboardBody.innerHTML = '';
                 leaderboardData.forEach((player, index) => {
                     const row = document.createElement('tr');
                     
-                    // Add special classes for top 3 positions
                     if (index === 0) {
                         row.classList.add('leaderboard-top-1');
                     } else if (index === 1) {
@@ -1778,8 +1698,7 @@
                         <td>${player.wins}</td>
                         <td>${player.draws}</td>
                         <td>${player.losses}</td>
-                        <td>${player.ballsFor}</td>  <!-- NEW: Balls For column -->
-                        <td>${player.ballsAgainst}</td>  <!-- NEW: Balls Against column -->
+                        <td>${player.ballsFor - player.ballsAgainst}</td>
                         <td class="points">${player.points}</td>
                     `;
                     elements.leaderboardBody.appendChild(row);
@@ -1789,7 +1708,6 @@
             }
         }
 
-        // Load player stats
         async function loadPlayerStats() {
             try {
                 const playerId = parseInt(elements.playerSelect.value);
@@ -1807,13 +1725,12 @@
                     return;
                 }
                 
-                // Calculate player stats
                 let played = 0;
                 let wins = 0;
                 let draws = 0;
                 let losses = 0;
-                let ballsFor = 0;      // NEW: Balls scored by the player
-                let ballsAgainst = 0;   // NEW: Balls scored against the player
+                let ballsFor = 0;
+                let ballsAgainst = 0;
                 let points = 0;
                 
                 for (const fixture of fixtures) {
@@ -1821,8 +1738,8 @@
                     
                     if (fixture.player1 === playerId) {
                         played++;
-                        ballsFor += fixture.player1Score;      // NEW: Add player's balls
-                        ballsAgainst += fixture.player2Score;  // NEW: Add opponent's balls
+                        ballsFor += fixture.player1Score;
+                        ballsAgainst += fixture.player2Score;
                         
                         if (fixture.player1Score > fixture.player2Score) {
                             wins++;
@@ -1835,8 +1752,8 @@
                         }
                     } else if (fixture.player2 === playerId) {
                         played++;
-                        ballsFor += fixture.player2Score;      // NEW: Add player's balls
-                        ballsAgainst += fixture.player1Score;  // NEW: Add opponent's balls
+                        ballsFor += fixture.player2Score;
+                        ballsAgainst += fixture.player1Score;
                         
                         if (fixture.player2Score > fixture.player1Score) {
                             wins++;
@@ -1850,10 +1767,7 @@
                     }
                 }
                 
-                // Calculate additional stats
                 const winPercentage = played > 0 ? ((wins / played) * 100).toFixed(1) : 0;
-                const averageBallsFor = played > 0 ? (ballsFor / played).toFixed(1) : 0;
-                const averageBallsAgainst = played > 0 ? (ballsAgainst / played).toFixed(1) : 0;
                 
                 elements.playerStats.innerHTML = `
                     <div class="player-stats-container">
@@ -1875,14 +1789,6 @@
                             <span>${losses}</span>
                         </div>
                         <div class="player-stats-item">
-                            <span>Balls For:</span>
-                            <span>${ballsFor}</span>
-                        </div>
-                        <div class="player-stats-item">
-                            <span>Balls Against:</span>
-                            <span>${ballsAgainst}</span>
-                        </div>
-                        <div class="player-stats-item">
                             <span>Goal Difference:</span>
                             <span>${ballsFor - ballsAgainst}</span>
                         </div>
@@ -1894,14 +1800,6 @@
                             <span>Win Percentage:</span>
                             <span>${winPercentage}%</span>
                         </div>
-                        <div class="player-stats-item">
-                            <span>Average Balls For:</span>
-                            <span>${averageBallsFor}</span>
-                        </div>
-                        <div class="player-stats-item">
-                            <span>Average Balls Against:</span>
-                            <span>${averageBallsAgainst}</span>
-                        </div>
                     </div>
                 `;
             } catch (error) {
@@ -1909,16 +1807,13 @@
             }
         }
 
-        // Load contribution status
         async function loadContributionStatus() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
                 const contributionAmount = await getSetting('contributionAmount') || 20;
                 
-                // Update contribution amount input
                 elements.contributionAmount.value = contributionAmount;
                 
-                // Calculate total pot
                 let paidCount = 0;
                 let paymentStatusHTML = '';
                 
@@ -1945,7 +1840,6 @@
                 elements.potAmount.textContent = `Total Pot: $${totalPot}`;
                 elements.paymentStatusBody.innerHTML = paymentStatusHTML;
                 
-                // Add event listeners to mark paid buttons
                 document.querySelectorAll('.mark-paid').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const playerId = parseInt(e.target.dataset.id);
@@ -1955,7 +1849,6 @@
                     });
                 });
                 
-                // Add event listeners to mark unpaid buttons
                 document.querySelectorAll('.mark-unpaid').forEach(button => {
                     button.addEventListener('click', async (e) => {
                         const playerId = parseInt(e.target.dataset.id);
@@ -1965,14 +1858,12 @@
                     });
                 });
                 
-                // Update prize distribution
                 await updatePrizeDistribution();
             } catch (error) {
                 console.error('Error loading contribution status:', error);
             }
         }
 
-        // Mark player paid status
         async function markPlayerPaidStatus(playerId, paid) {
             try {
                 const transaction = db.transaction([STORES.PLAYERS], 'readwrite');
@@ -1992,7 +1883,6 @@
             }
         }
 
-        // Update prize distribution
         async function updatePrizeDistribution() {
             try {
                 const players = await getAllData(STORES.PLAYERS);
@@ -2001,15 +1891,12 @@
                 const winnersCount = parseInt(await getSetting('winnersCount') || 3);
                 const firstPrizePercentage = parseInt(await getSetting('firstPrizePercentage') || 40);
                 
-                // Update inputs
                 elements.winnersCount.value = winnersCount;
                 elements.firstPrizePercentage.value = firstPrizePercentage;
                 
-                // Calculate paid players count
                 const paidPlayers = players.filter(p => p.paid);
                 const totalPot = paidPlayers.length * contributionAmount;
                 
-                // Calculate player stats for ranking
                 const playerStats = {};
                 players.forEach(player => {
                     playerStats[player.id] = {
@@ -2019,31 +1906,27 @@
                         wins: 0,
                         draws: 0,
                         losses: 0,
-                        ballsFor: 0,      // NEW: Balls scored by the player
-                        ballsAgainst: 0,   // NEW: Balls scored against the player
+                        ballsFor: 0,
+                        ballsAgainst: 0,
                         points: 0
                     };
                 });
                 
-                // Calculate stats from completed fixtures
                 for (const fixture of fixtures) {
                     if (fixture.status !== 'completed') continue;
                     
                     const player1Id = fixture.player1;
                     const player2Id = fixture.player2;
                     
-                    // Update games played
                     playerStats[player1Id].played++;
                     playerStats[player2Id].played++;
                     
-                    // NEW: Update balls for and against
                     playerStats[player1Id].ballsFor += fixture.player1Score;
                     playerStats[player1Id].ballsAgainst += fixture.player2Score;
                     
                     playerStats[player2Id].ballsFor += fixture.player2Score;
                     playerStats[player2Id].ballsAgainst += fixture.player1Score;
                     
-                    // Update wins, draws, losses and points
                     if (fixture.player1Score > fixture.player2Score) {
                         playerStats[player1Id].wins++;
                         playerStats[player1Id].points += 3;
@@ -2060,33 +1943,26 @@
                     }
                 }
                 
-                // Convert to array and sort by points (descending)
                 const rankedPlayers = Object.values(playerStats).sort((a, b) => {
-                    // First by points
                     if (b.points !== a.points) {
                         return b.points - a.points;
                     }
                     
-                    // Then by goal difference (balls for - balls against)
                     const goalDiffA = a.ballsFor - a.ballsAgainst;
                     const goalDiffB = b.ballsFor - b.ballsAgainst;
                     if (goalDiffB !== goalDiffA) {
                         return goalDiffB - goalDiffA;
                     }
                     
-                    // Then by balls for
                     if (b.ballsFor !== a.ballsFor) {
                         return b.ballsFor - a.ballsFor;
                     }
                     
-                    // Finally by name
                     return a.name.localeCompare(b.name);
                 });
                 
-                // Calculate prize distribution
                 let distributionHTML = '';
                 if (rankedPlayers.length > 0 && totalPot > 0) {
-                    // Calculate prize amounts
                     const prizeAmounts = [];
                     let remainingPercentage = 100;
                     
@@ -2095,14 +1971,12 @@
                             prizeAmounts.push(firstPrizePercentage);
                             remainingPercentage -= firstPrizePercentage;
                         } else {
-                            // Distribute remaining percentage equally among other winners
                             const percentage = Math.floor(remainingPercentage / (winnersCount - i));
                             prizeAmounts.push(percentage);
                             remainingPercentage -= percentage;
                         }
                     }
                     
-                    // Display prize distribution
                     distributionHTML = '<h3>Projected Prizes</h3>';
                     for (let i = 0; i < Math.min(winnersCount, rankedPlayers.length); i++) {
                         const player = rankedPlayers[i];
@@ -2124,7 +1998,6 @@
             }
         }
 
-        // Export database
         async function exportDatabase() {
             try {
                 const data = {
@@ -2153,7 +2026,6 @@
             }
         }
 
-        // Import database
         async function importDatabase() {
             try {
                 const file = elements.importFile.files[0];
@@ -2167,7 +2039,6 @@
                     try {
                         const data = JSON.parse(e.target.result);
                         
-                        // Clear existing data
                         const stores = [STORES.PLAYERS, STORES.FIXTURES, STORES.USERS, STORES.SETTINGS];
                         for (const store of stores) {
                             const allData = await getAllData(store);
@@ -2176,7 +2047,6 @@
                             }
                         }
                         
-                        // Import new data
                         if (data.players) {
                             for (const player of data.players) {
                                 await addData(STORES.PLAYERS, player);
@@ -2201,7 +2071,6 @@
                             }
                         }
                         
-                        // Reload UI
                         await loadPlayersIntoDropdowns();
                         await loadPlayerList();
                         await loadFixtures();
@@ -2222,14 +2091,12 @@
             }
         }
 
-        // Reset all data
         async function resetAllData() {
             try {
                 if (!confirm('Are you sure you want to reset all data? This cannot be undone.')) {
                     return;
                 }
                 
-                // Clear all data from stores
                 const stores = [STORES.PLAYERS, STORES.FIXTURES, STORES.SETTINGS];
                 for (const store of stores) {
                     const allData = await getAllData(store);
@@ -2238,9 +2105,6 @@
                     }
                 }
                 
-                // Keep users intact
-                
-                // Reload UI
                 await loadPlayersIntoDropdowns();
                 await loadPlayerList();
                 await loadFixtures();
@@ -2254,9 +2118,7 @@
             }
         }
 
-        // Event Listeners
         function setupEventListeners() {
-            // Tab navigation
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -2267,12 +2129,10 @@
                 });
             });
             
-            // Mobile menu toggle
             elements.mobileMenuBtn.addEventListener('click', () => {
                 elements.tabsContainer.classList.toggle('active');
             });
             
-            // Login
             elements.loginBtn.addEventListener('click', () => {
                 elements.mainContainer.classList.add('hidden');
                 elements.loginContainer.classList.remove('hidden');
@@ -2299,17 +2159,13 @@
                 }
             });
             
-            // Fixture generation
             elements.generateFixtures.addEventListener('click', generateFixtures);
             
-            // Filters
             elements.filterPlayer.addEventListener('change', loadFixtures);
             elements.filterStatus.addEventListener('change', loadFixtures);
             
-            // Player stats
             elements.playerSelect.addEventListener('change', loadPlayerStats);
             
-            // Contribution settings
             elements.updateContribution.addEventListener('click', async () => {
                 const amount = parseInt(elements.contributionAmount.value);
                 if (isNaN(amount) || amount < 0) {
@@ -2354,7 +2210,6 @@
                 alert('Payment recorded successfully!');
             });
             
-            // Player management
             elements.addPlayer.addEventListener('click', async () => {
                 const name = elements.playerName.value.trim();
                 if (!name) {
@@ -2371,12 +2226,10 @@
             
             elements.resetData.addEventListener('click', resetAllData);
             
-            // Database operations
             elements.exportData.addEventListener('click', exportDatabase);
             elements.importData.addEventListener('click', () => elements.importFile.click());
             elements.importFile.addEventListener('change', importDatabase);
             
-            // User management
             elements.addUser.addEventListener('click', async () => {
                 const username = elements.username.value.trim();
                 const password = elements.password.value;
@@ -2398,13 +2251,11 @@
                 }
             });
             
-            // Result modal
             elements.saveResult.addEventListener('click', saveResult);
             elements.closeModal.addEventListener('click', () => {
                 elements.resultModal.style.display = 'none';
             });
             
-            // Close modal when clicking outside
             window.addEventListener('click', (e) => {
                 if (e.target === elements.resultModal) {
                     elements.resultModal.style.display = 'none';
@@ -2412,16 +2263,12 @@
             });
         }
 
-        // Initialize the application
         async function initApp() {
             try {
-                // Initialize database
                 await initDatabase();
                 
-                // Initialize default admin if needed
                 await initDefaultAdmin();
                 
-                // Check if user is already logged in
                 const savedUser = sessionStorage.getItem('currentUser');
                 if (savedUser) {
                     currentUser = JSON.parse(savedUser);
@@ -2433,7 +2280,6 @@
                     elements.loginContainer.classList.remove('hidden');
                 }
                 
-                // Load initial data
                 await loadPlayersIntoDropdowns();
                 await loadPlayerList();
                 await loadFixtures();
@@ -2441,7 +2287,6 @@
                 await loadContributionStatus();
                 await loadUserList();
                 
-                // Setup event listeners
                 setupEventListeners();
                 
                 console.log('App initialized successfully');
@@ -2451,7 +2296,6 @@
             }
         }
 
-        // Start the application
         window.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
